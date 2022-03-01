@@ -45,9 +45,10 @@ void write::writebit(int i){
   if(tbits == 8){
     flush();
   }
+  //bit masking
   unsigned char mask = 1;
   if(i == 1){
-    mask = mask <<(7 - tbits);
+    mask = mask << (7 - tbits);
     buff = buff | mask;
   }
   if(i == 0){
@@ -212,7 +213,7 @@ void printtree(struct huffman_tree* root , int indent){
 void create_code_file(){
   ofstream out;
   char code_filename[32];
-  std::cout << "\tEnter the name of the code file :: " << '\n';
+  std::cout << "\nEnter the name of the code file :: " << '\n';
   std::cin >> code_filename;
   out.open(code_filename,ios::out);
   for (size_t i = 0; i < codes.size() ; i++) {
@@ -223,7 +224,12 @@ void create_code_file(){
     out<<endl;
   }
   out.close();
-  std::cout << "\nA File with the Huffman Codes has been Created in the of codes.txt in the same Directory" << '\n';
+}
+
+void cal_compression_ratio(){
+long double ori_size = charactermappingcount;
+long double comp_size = Huffcode.size() / 8 ;
+std::cout << "\n Compression ratio achieved :: "<< ((comp_size/ori_size)*100) << '\n';
 }
 
 //Driver program
@@ -258,7 +264,7 @@ int main() {
   int len = strlen(filename);
   filename[len-1] = 'f';
   filename[len-2] = 'u';
-  filename[len-3] = 'H';
+  filename[len-3] = 'h';
   ofstream out;
   out.open(filename,ios::binary);
   std::cout << "\nThe Size of the Compressed File is "<<Huffcode.size()/8 << '\n';
@@ -270,5 +276,6 @@ int main() {
      temp.writebit(temp1);
   }
   std::cout << "\ncompression successful!!!!!" << '\n';
+  cal_compression_ratio();
   return 0;
 }

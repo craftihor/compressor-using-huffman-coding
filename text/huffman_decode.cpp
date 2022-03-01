@@ -83,10 +83,12 @@ inline void huffman::display_huffman_tree(ostream & out){
 void huffman::build_tree(ifstream & codes){
   char ch;
   string code;
+  std::cout << "\nCharacter Table with Huffman codes" << '\n';
+  std::cout << "\n\tCharacter\t\tHuffman Code" << '\n';
   for(;;){
     if(codes.eof())  return ;
     codes >> ch >> code;
-    cout << "\n" << ch << " = " << code;
+    cout << "\t    " << ch << " \t\t\t   " << code<<endl;
     if(ch == '_'){
       ch = ' ';
     }
@@ -151,9 +153,9 @@ int main(){
   char codes_filename[32];
   char decomp_filename[32];
   char filename[32];
-  cout<<"\n\t====================================";
-  cout<<"\n\t\t Text File Decompressor\n";
-  cout<<"\t====================================";
+  std::cout << "\n+++++++++++++++++++++++++++++++++++++++++" << '\n';
+  std::cout << "\t File compressor" << '\n';
+  std::cout << "+++++++++++++++++++++++++++++++++++++++++\n" << '\n';
   cout << "\n\nEnter name of code file: ";
   cin >> codes_filename;
   ifstream codestream(codes_filename);
